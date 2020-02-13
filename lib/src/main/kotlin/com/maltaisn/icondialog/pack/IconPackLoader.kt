@@ -33,9 +33,6 @@ class IconPackLoader(context: Context) {
 
     private val context = context.applicationContext
 
-    var drawableLoader = IconDrawableLoader(context)
-        internal set
-
     /**
      * Load an icon pack from XML resources for icons and tags.
      *
@@ -48,7 +45,7 @@ class IconPackLoader(context: Context) {
      */
     fun load(@XmlRes iconsXml: Int, @XmlRes tagsXml: Int = 0,
              locales: List<Locale> = emptyList(), parent: IconPack? = null): IconPack {
-        val pack = IconPack(parent = parent, locales = locales, tagsXml = tagsXml)
+        val pack = IconPack(parent = parent, locales = locales, tagsXml = tagsXml, iconDrawableLoader = IconDrawableLoader(context))
         loadIcons(pack, iconsXml)
         loadTags(pack)
         return pack

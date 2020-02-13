@@ -19,6 +19,7 @@ package com.maltaisn.icondialog.pack
 import com.maltaisn.icondialog.data.GroupingTag
 import com.maltaisn.icondialog.testCatg
 import com.maltaisn.icondialog.testIcon
+import com.nhaarman.mockitokotlin2.mock
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -29,13 +30,13 @@ internal class IconPackTest {
     private val pack: IconPack
 
     init {
-        val parent = IconPack().apply {
+        val parent = IconPack(mock()).apply {
             icons[0] = testIcon(0, 0)
             icons[1] = testIcon(0, 0)
             categories[0] = testCatg(0)
             tags["_0"] = GroupingTag("_0")
         }
-        pack = IconPack(parent).apply {
+        pack = IconPack(mock(), parent).apply {
             icons[1] = testIcon(1, 1)
             categories[1] = testCatg(1)
             tags["_1"] = GroupingTag("_1")

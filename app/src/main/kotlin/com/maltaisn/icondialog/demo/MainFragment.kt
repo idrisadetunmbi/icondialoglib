@@ -232,7 +232,7 @@ class MainFragment : Fragment(), IconDialog.Callback {
                 }
 
                 // Load drawables
-                pack.loadDrawables(iconPackLoader.drawableLoader)
+                pack.loadDrawables()
 
                 if (fakeLoadingCheck.isChecked) {
                     delay(4000)

@@ -35,10 +35,7 @@ internal class IconPackLoaderTest {
 
     private val context = InstrumentationRegistry.getInstrumentation().context
 
-    private val packLoader = IconPackLoader(context).apply {
-        drawableLoader = mock()
-        whenever(drawableLoader.loadDrawable(any())).thenReturn(mock())
-    }
+    private val packLoader = IconPackLoader(context)
 
     /*
     // This test only works if `context = context.applicationContext` line is removed in loaders.

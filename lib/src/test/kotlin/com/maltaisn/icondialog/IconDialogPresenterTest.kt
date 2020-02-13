@@ -30,7 +30,7 @@ internal class IconDialogPresenterTest {
     private val presenter = IconDialogPresenter()
     private val settings = IconDialogSettings()
 
-    private val iconPack = IconPack(locales = listOf(Locale.ENGLISH)).apply {
+    private val iconPack = IconPack(locales = listOf(Locale.ENGLISH), iconDrawableLoader = mock()).apply {
         icons[0] = testIcon(0, 0, listOf("a", "b"))
         icons[1] = testIcon(1, 0, listOf("b", "c"))
         icons[2] = testIcon(2, 1, listOf("e", "f"))

@@ -22,6 +22,7 @@ import com.maltaisn.icondialog.normalize
 import com.maltaisn.icondialog.pack.IconPack
 import com.maltaisn.icondialog.testCatg
 import com.maltaisn.icondialog.testIcon
+import com.nhaarman.mockitokotlin2.mock
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -31,14 +32,14 @@ internal class DefaultIconFilterTest {
 
     private val filter = DefaultIconFilter()
 
-    private val parentPack = IconPack().apply {
+    private val parentPack = IconPack(mock()).apply {
         icons[0] = testIcon(0, 0)
         icons[6] = testIcon(6, 0)
 
         categories[0] = testCatg(0)
     }
 
-    private val pack = IconPack(parentPack).apply {
+    private val pack = IconPack(mock(), parentPack).apply {
         icons[0] = testIcon(0, 0, listOf("abc", "def"))
         icons[1] = testIcon(1, 2, listOf("bcd", "efg"))
         icons[2] = testIcon(2, 2, listOf("cde", "fgh"))

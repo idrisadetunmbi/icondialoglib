@@ -34,12 +34,14 @@ import java.util.*
  * there are no tags at all.
  * @property tagsXml XML resource containing the tags. Can be set to `0` if there are no tags.
  */
-class IconPack(val parent: IconPack? = null,
-               val icons: MutableMap<Int, Icon> = mutableMapOf(),
-               val categories: MutableMap<Int, Category> = mutableMapOf(),
-               val tags: MutableMap<String, IconTag> = mutableMapOf(),
-               val locales: List<Locale> = emptyList(),
-               @XmlRes val tagsXml: Int = 0) {
+class IconPack(
+        private val iconDrawableLoader: IconDrawableLoader,
+        val parent: IconPack? = null,
+        val icons: MutableMap<Int, Icon> = mutableMapOf(),
+        val categories: MutableMap<Int, Category> = mutableMapOf(),
+        val tags: MutableMap<String, IconTag> = mutableMapOf(),
+        val locales: List<Locale> = emptyList(),
+        @XmlRes val tagsXml: Int = 0) {
 
     /**
      * Create a new list containing all the icons from this pack and its parents,
@@ -82,7 +84,8 @@ class IconPack(val parent: IconPack? = null,
      * Get the drawable for an icon [id]. Returns `null` if icon doesn't exist
      * or if the drawable couldn't be loaded with the [loader].
      */
-    fun getIconDrawable(id: Int, loader: IconDrawableLoader): Drawable? {
+    @JvmOverloads
+    fun getIconDrawable(id: Int, loader: IconDrawableLoader = iconDrawableLoader): Drawable? {
         val icon = getIcon(id) ?: return null
         loader.loadDrawable(icon)
         return icon.drawable
@@ -92,7 +95,8 @@ class IconPack(val parent: IconPack? = null,
      * Load all icons in this pack with a [loader].
      * This is probably best called on another thread than the main thread.
      */
-    fun loadDrawables(loader: IconDrawableLoader) {
+    @JvmOverloads
+    fun loadDrawables(loader: IconDrawableLoader = iconDrawableLoader) {
         for (icon in allIcons) {
             loader.loadDrawable(icon)
         }
